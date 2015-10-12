@@ -1,16 +1,24 @@
-HEADERS = hash.h hashmap.h
-OBJ = hash.o hashmap.o main.o
-CC=gcc
-CFLAGS=-O2
+TARGET = c_hashmap
+LIBS = 
+CC = gcc
+CFLAGS = -O2
 
-default: test
+.PHONY: default all clean
+
+default: $(TARGET)
+all: default
+
+OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
+HEADERS = $(wildcard *.h)
 
 %.o: %.c $(HEADERS)
-    $(CC) -c -o $@ $< $(CFLAGS)
+    $(CC) $(CFLAGS) -c $< -o $@
 
-test: $(OBJ)
-    gcc $(OBJ) -o c_hashmap
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+$(TARGET): $(OBJECTS)
+    $(CC) $(OBJECTS) -Wall $(LIBS) -o $@
 
 clean:
-    -rm -f $(OBJ)
-    -rm -f c_hashmap
+    -rm -f *.o
+    -rm -f $(TARGET)
