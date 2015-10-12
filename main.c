@@ -12,14 +12,12 @@
 #define KEY_PREFIX ("somekey")
 #define KEY_COUNT (1024*1024)
 
-typedef struct data_struct_s
-{
+typedef struct data_struct_s {
     char key_string[KEY_MAX_LENGTH];
     int number;
 } data_struct_t;
 
-int main(char* argv, int argc)
-{
+int main(int argc, char* argv) {
     int index;
     int error;
     map_t mymap;
@@ -29,8 +27,7 @@ int main(char* argv, int argc)
     mymap = hashmap_new();
 
     /* First, populate the hash map with ascending values */
-    for (index=0; index<KEY_COUNT; index+=1)
-    {
+    for (index=0; index<KEY_COUNT; index+=1) {
         /* Store the key string along side the numerical value so we can free it later */
         value = malloc(sizeof(data_struct_t));
         snprintf(value->key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, index);
@@ -41,8 +38,7 @@ int main(char* argv, int argc)
     }
 
     /* Now, check all of the expected values are there */
-    for (index=0; index<KEY_COUNT; index+=1)
-    {
+    for (index=0; index<KEY_COUNT; index+=1) {
         snprintf(key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, index);
 
         error = hashmap_get(mymap, key_string, (void**)(&value));
@@ -61,8 +57,7 @@ int main(char* argv, int argc)
     assert(error==MAP_MISSING);
 
     /* Free all of the values we allocated and remove them from the map */
-    for (index=0; index<KEY_COUNT; index+=1)
-    {
+    for (index=0; index<KEY_COUNT; index+=1) {
         snprintf(key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, index);
 
         error = hashmap_get(mymap, key_string, (void**)(&value));
