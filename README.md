@@ -1,10 +1,21 @@
+# c_hashmap
+
 This is a simple C hashmap, using strings for the keys.
 
-Originally based on code by Eliot Back at http://elliottback.com/wp/hashmap-implementation-in-c/
+This is a fork of Zaks Wang's code.
 
-Reworked by Pete Warden - http://petewarden.typepad.com/searchbrowser/2010/01/c-hashmap.html
+I have translated some of the comments and plan on tidying up the code a bit later on.
 
-Zaks Wang
+I am hoping to use this in a pretty cool project later on.
+
+## credits
+
+This code is based on Zaks Wang's code, which can be found [here](https://github.com/ultimate010/c_hashmap).
+
+They based their code on [Pete Warden's code](https://github.com/petewarden/c_hashmap), which was based on
+[Elliot Beck's code](http://elliottback.com/wp/hashmap-implementation-in-c/).
+
+Here's some messages from Zaks Wang:
 
         1.fix bug that put same key the map value will increase
 
@@ -20,6 +31,9 @@ To compile it, run something like this on your system:
 gcc main.c hashmap.c hash.c -o hashmaptest
 
 There are no restrictions on how you reuse this code.
+
+Not yet translated:
+
 
 hash_func_test
 ##############
