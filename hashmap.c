@@ -32,10 +32,10 @@ inline unsigned long next_prime(unsigned long n){
   const unsigned long * first = prime_list;
   const unsigned long * last = prime_list+(int)num_primes;
   while(first != last&&*first <= n){
-    first++; //获取一个比输入大的质数
+    first++; //The number is larger than "n" [Translation unsure]
   }
   if(first==last){
-    return *(last-1); //返回最大素数的
+    return *(last-1); // Return largest prime num
   }else{
     return *first;
   }
@@ -61,11 +61,11 @@ typedef struct _hashmap_map{
  */
 map_t hashmap_new(unsigned long size) {
 	hashmap_map* m = (hashmap_map*) malloc(sizeof(hashmap_map));
-    hash_fun=HASHFUN; //设置hash函数
+    hash_fun=HASHFUN; // Set hash function based on configured one in header
 	if(!m) goto err;
     size = next_prime(size);
     //long total = size*sizeof(hashmap_element);
-	m->data = (hashmap_element*) calloc(size, sizeof(hashmap_element)); //calloc会把数据初始化为0
+	m->data = (hashmap_element*) calloc(size, sizeof(hashmap_element)); // calloc will set memory to 0
 	if(!m->data) goto err;
 
 	m->table_size = size;
@@ -194,7 +194,7 @@ unsigned long crc32(const unsigned char *s, unsigned int len)
   return crc32val;
 }
 /*
- * 可以自定义hansh函数
+ * You can customize the hash function to whatever you want
  */
 unsigned int hashmap_hash_int_diff(hashmap_map *m,char*keystring){
   unsigned int key = hash_fun(keystring);
@@ -316,7 +316,9 @@ int hashmap_put(map_t in, char* key, any_t value){
 	}
     /*
      * bug fixed by Zaks Wang
-     * 当插入同样的key时候，返回,map size不增加
+     * original issue:
+     * When you insert the same key into the map, the original value is overriden, but the map size increases
+     * This shouldn't happen
      */
     if(m->data[index].in_use==1){
       return MAP_USED;
